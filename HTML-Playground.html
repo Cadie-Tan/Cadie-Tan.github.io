@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<!--CSS-->
+<style>
+    button:hover {
+        background-color: lightskyblue;
+    }
+</style>
+<!--HTML-->
+<head>
+    <meta charset="UTF-8" />
+    <title>Website</title>
+</head>
+    <h1>Add to the total</h1>
+<body>
+    <button onclick="addnumber(1)">1</button>
+    <button onclick="addnumber(2)">2</button>
+    <button onclick="addnumber(3)">3</button>
+    <button onclick="addnumber(4)">4</button>
+    <button onclick="addnumber(5)">5</button>
+    <h1 id="total">0</h1>
+        <div>
+            <a href="https://www.w3schools.com" target="_blank">W3Schools</a>
+        </div>
+        <div>
+            <a href="https://www.heroku.com/platform/" target="_blank">Heroku</a>
+        </div>
+</body>
+<!--Javascript-->
+<script>
+    var total = 0;
+    var addnumber = (num) => {
+        total = total + num;
+        document.getElementById("total").innerHTML = total;
+    }
+</script>
+</html>
