@@ -3,32 +3,84 @@
 <!--CSS-->
 <style>
     button:hover {
-        background-color: lightskyblue;
+    border: 2px dashed orangered;
+    }
+    button {
+        font-size: 20px;
+    }
+    .arithmetic {
+        border: 2px solid orangered;
+    }
+    .template {
+        display: none;
     }
 </style>
+
 <!--HTML-->
 <head>
     <meta charset="UTF-8" />
     <title>Website</title>
 </head>
-    <h1>Add to the total</h1>
+<h1>Meet the goal</h1>
+<h1 id="goal">0</h1>
 <body>
-    <button onclick="addnumber(1)">1</button>
-    <button onclick="addnumber(2)">2</button>
-    <button onclick="addnumber(3)">3</button>
-    <button onclick="addnumber(4)">4</button>
-    <button onclick="addnumber(5)">5</button>
+    <button class="numberbutton template" onclick="this.newtotal()"></button>
+    <div>
+        <button class="arithmetic" onclick="operation = '+';changeborder()">+</button>
+        <button onclick="operation = '-';changeborder()">-</button>
+        <button onclick="operation = 'x';changeborder()">x</button>
+        <button onclick="operation = '/';changeborder()">/</button>
+    </div>
     <h1 id="total">0</h1>
-        <div>
-            <a href="https://www.w3schools.com" target="_blank">W3Schools</a>
-        </div>
+    <div></div>
+    <div><a href="https://javascript.info" target="_blank">help</a></div>
 </body>
+
 <!--Javascript-->
 <script>
+    var operation = "+";
     var total = 0;
-    var addnumber = (num) => {
-        total = total + num;
-        document.getElementById("total").innerHTML = total;
+    var spawnbutton = () => {
+        var template = document.querySelector(".numberbutton.template");
+        const button = template.cloneNode(true);
+        button.reroll = () => {
+            button.numberToAdd = Math.ceil(10 * Math.random());
+            button.innerHTML = button.numberToAdd;
+        }
+        button.classList.remove("template");
+        button.reroll();
+        template.parentNode.insertBefore(button, template);
+        button.newtotal = () => {
+            switch (operation) {
+                case "+":
+                    total = total + button.numberToAdd;
+                    break;
+                case "-":
+                    total = total - button.numberToAdd;
+                    break;
+                case "x":
+                    total = total * button.numberToAdd;
+                    break;
+                case "/":
+                    total = Math.round(total / button.numberToAdd);
+                    break;
+            }
+            document.getElementById("total").innerHTML = total;
+            button.reroll()
+            if (document.getElementById("goal").innerHTML == document.getElementById("total").innerHTML) {
+                document.getElementById("goal").innerHTML = Math.ceil(1000 * Math.random());
+            }
+        }
     }
+    changeborder = () => {
+        var arithmetic = document.querySelector(".arithmetic");
+        arithmetic.classList.remove("arithmetic");
+        onclick = event.target.classList.add("arithmetic");
+    };
+    for (i = 0; i < 5; i++) {
+        spawnbutton();
+    }
+    document.getElementById("goal").innerHTML = Math.ceil(1000 * Math.random());
 </script>
+
 </html>
