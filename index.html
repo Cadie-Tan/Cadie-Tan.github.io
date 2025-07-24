@@ -19,6 +19,7 @@
 <!--HTML-->
 <head>
     <meta charset="UTF-8" />
+    <audio id="music" src="https://cdn.discordapp.com/attachments/1066764179870072842/1397684776525369344/UntitledJun1220251115PM.m4a?ex=688347a2&is=6881f622&hm=9042ae3398e705b2a3cfacf18bcdb79be5e57ac1ebb5d1ae4f95cc569dd2dfd0&"></audio>
     <title>Website</title>
 </head>
 <h1>Meet the goal</h1>
@@ -32,7 +33,7 @@
         <button onclick="operation = '/';changeborder()">/</button>
     </div>
     <h1 id="total">0</h1>
-    <div></div>
+    <div><h3 class="score template"></h3></div>
     <div><a href="https://javascript.info" target="_blank">help</a></div>
 </body>
 
@@ -40,11 +41,13 @@
 <script>
     var operation = "+";
     var total = 0;
+    var turns = 0;
+    var level = 1;
     var spawnbutton = () => {
         var template = document.querySelector(".numberbutton.template");
         const button = template.cloneNode(true);
         button.reroll = () => {
-            button.numberToAdd = Math.ceil(10 * Math.random());
+            button.numberToAdd = Math.ceil((10 * level) * Math.random());
             button.innerHTML = button.numberToAdd;
         }
         button.classList.remove("template");
@@ -65,12 +68,25 @@
                     total = Math.round(total / button.numberToAdd);
                     break;
             }
+            turns++;
             document.getElementById("total").innerHTML = total;
-            button.reroll()
             if (document.getElementById("goal").innerHTML == document.getElementById("total").innerHTML) {
-                document.getElementById("goal").innerHTML = Math.ceil(1000 * Math.random());
+                document.getElementById("goal").innerHTML = Math.ceil((1000 * (10 ** level)) * Math.random());
+                spawnscore();
+                level++;
+                document.getElementById("music").play();
             }
+            button.reroll()
+
         }
+    }
+    var spawnscore = () => {
+        var template = document.querySelector(".score.template");
+        const score = template.cloneNode(true);
+        score.classList.remove("template");
+        template.parentNode.insertBefore(score, template);
+        score.innerHTML = "Score: " + turns;
+        turns = 0
     }
     changeborder = () => {
         var arithmetic = document.querySelector(".arithmetic");
@@ -82,5 +98,4 @@
     }
     document.getElementById("goal").innerHTML = Math.ceil(1000 * Math.random());
 </script>
-
 </html>
