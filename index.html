@@ -3,14 +3,19 @@
 <!--CSS-->
 <style>
     button:hover {
-    border: 2px dashed orangered;
+        border: 2px dashed orangered;
     }
+
     button {
         font-size: 20px;
+        background-color: aliceblue;
+        border: 1px solid black;
     }
+
     .arithmetic {
         border: 2px solid orangered;
     }
+
     .template {
         display: none;
     }
@@ -19,25 +24,29 @@
 <!--HTML-->
 <head>
     <meta charset="UTF-8" />
-    <audio id="music" src="https://cdn.discordapp.com/attachments/1066764179870072842/1397684776525369344/UntitledJun1220251115PM.m4a?ex=688347a2&is=6881f622&hm=9042ae3398e705b2a3cfacf18bcdb79be5e57ac1ebb5d1ae4f95cc569dd2dfd0&"></audio>
+    <audio id="music"
+        src="https://cdn.discordapp.com/attachments/1066764179870072842/1397684776525369344/UntitledJun1220251115PM.m4a?ex=688347a2&is=6881f622&hm=9042ae3398e705b2a3cfacf18bcdb79be5e57ac1ebb5d1ae4f95cc569dd2dfd0&"></audio>
     <title>Website</title>
 </head>
-<h1>Meet the goal</h1>
-<h1 id="goal">0</h1>
+
 <body>
+    <h1>Meet the goal</h1>
+    <h1 id="goal">0</h1>
     <button class="numberbutton template" onclick="this.newtotal()"></button>
     <div>
-        <button class="arithmetic" onclick="operation = '+';changeborder()">+</button>
-        <button onclick="operation = '-';changeborder()">-</button>
-        <button onclick="operation = 'x';changeborder()">x</button>
-        <button onclick="operation = '/';changeborder()">/</button>
+        <button class="arithmetic" onclick="operation = '+';highlightselected()">+</button>
+        <button onclick="operation = '-';highlightselected()">-</button>
+        <button onclick="operation = 'x';highlightselected()">x</button>
+        <button onclick="operation = '/';highlightselected()">/</button>
     </div>
     <h1 id="total">0</h1>
-    <div><h3 class="score template"></h3></div>
-    <div><a href="https://javascript.info" target="_blank">help</a></div>
+    <div>
+        <h3 class="score template"></h3>
+    </div>
+    <div><a href="https://forms.gle/7B3tMWvhySpxS3qc6" target="_blank">Give feedback on this game!</a></div>
 </body>
 
-<!--Javascript-->
+<!--Javascript; https://javascript.info for help-->
 <script>
     var operation = "+";
     var total = 0;
@@ -53,6 +62,7 @@
         button.classList.remove("template");
         button.reroll();
         template.parentNode.insertBefore(button, template);
+        //button.newtotal is called when the button is clicked
         button.newtotal = () => {
             switch (operation) {
                 case "+":
@@ -77,7 +87,6 @@
                 document.getElementById("music").play();
             }
             button.reroll()
-
         }
     }
     var spawnscore = () => {
@@ -88,11 +97,11 @@
         score.innerHTML = "Score: " + turns;
         turns = 0
     }
-    changeborder = () => {
+    highlightselected = () => {
         var arithmetic = document.querySelector(".arithmetic");
         arithmetic.classList.remove("arithmetic");
         onclick = event.target.classList.add("arithmetic");
-    };
+    }
     for (i = 0; i < 5; i++) {
         spawnbutton();
     }
