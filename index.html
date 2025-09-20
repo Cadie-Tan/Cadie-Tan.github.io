@@ -2,17 +2,25 @@
 <html>
 <!--CSS-->
 <style>
+    h1 {
+        font-size: 70px;
+    }
+    body {
+        font-family: helvetica, sans-serif;
+        text-align: center;
+    }
+
     button:hover {
         border: 2px dashed orangered;
     }
 
     button {
-        font-size: 20px;
+        font-size: 80px;
         background-color: aliceblue;
         border: 1px solid black;
     }
 
-    .arithmetic {
+    .highlighted {
         border: 2px solid orangered;
     }
 
@@ -24,22 +32,27 @@
 <!--HTML-->
 <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <audio id="music"
         src="https://cdn.discordapp.com/attachments/1066764179870072842/1397684776525369344/UntitledJun1220251115PM.m4a?ex=688347a2&is=6881f622&hm=9042ae3398e705b2a3cfacf18bcdb79be5e57ac1ebb5d1ae4f95cc569dd2dfd0&"></audio>
     <title>Website</title>
 </head>
 
 <body>
-    <h1>Meet the goal</h1>
+    <h1>Meet the goal:</h1>
     <h1 id="goal">0</h1>
     <button class="numberbutton template" onclick="this.newtotal()"></button>
     <div>
-        <button class="arithmetic" onclick="operation = '+';highlightselected()">+</button>
+        <button class="highlighted" onclick="operation = '+';highlightselected()">+</button>
         <button onclick="operation = '-';highlightselected()">-</button>
         <button onclick="operation = 'x';highlightselected()">x</button>
         <button onclick="operation = '/';highlightselected()">/</button>
     </div>
     <h1 id="total">0</h1>
+    <div>
+        <button onclick="difficulty = false;level = 1">regular</button>
+        <button onclick="difficulty = true">challenge</button>
+    </div>
     <div>
         <h3 class="score template"></h3>
     </div>
@@ -52,7 +65,8 @@
     var total = 0;
     var turns = 0;
     var level = 1;
-    var spawnbutton = () => {
+    var difficulty = false;
+    var SpawnButton = () => {
         var template = document.querySelector(".numberbutton.template");
         const button = template.cloneNode(true);
         button.reroll = () => {
@@ -81,9 +95,16 @@
             turns++;
             document.getElementById("total").innerHTML = total;
             if (document.getElementById("goal").innerHTML == document.getElementById("total").innerHTML) {
-                document.getElementById("goal").innerHTML = Math.ceil((1000 * (10 ** level)) * Math.random());
+                document.getElementById("goal").innerHTML = Math.ceil((100 * (10 ** level)) * Math.random());
+                total = 0
+                document.getElementById("total").innerHTML = total;
                 spawnscore();
-                level++;
+                if (difficulty == true) {
+                    level++;
+                    console.log("level increased");
+                }
+                console.log("difficulty: " + difficulty);
+                console.log("level: " + level);
                 document.getElementById("music").play();
             }
             button.reroll()
@@ -98,13 +119,13 @@
         turns = 0
     }
     highlightselected = () => {
-        var arithmetic = document.querySelector(".arithmetic");
-        arithmetic.classList.remove("arithmetic");
-        onclick = event.target.classList.add("arithmetic");
+        var highlighted = document.querySelector(".highlighted");
+        highlighted.classList.remove("highlighted");
+        onclick = event.target.classList.add("highlighted");
     }
     for (i = 0; i < 5; i++) {
-        spawnbutton();
+        SpawnButton();
     }
-    document.getElementById("goal").innerHTML = Math.ceil(1000 * Math.random());
+    document.getElementById("goal").innerHTML = Math.ceil(100 * Math.random());
 </script>
 </html>
