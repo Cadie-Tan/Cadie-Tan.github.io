@@ -34,7 +34,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <audio id="music"
-        src="https://cdn.discordapp.com/attachments/1066764179870072842/1397684776525369344/UntitledJun1220251115PM.m4a?ex=688347a2&is=6881f622&hm=9042ae3398e705b2a3cfacf18bcdb79be5e57ac1ebb5d1ae4f95cc569dd2dfd0&"></audio>
+        src="VictoryMusic.m4a" type="audio/m4a"></audio>
     <title>Website</title>
 </head>
 
@@ -43,15 +43,15 @@
     <h1 id="goal">0</h1>
     <button class="numberbutton template" onclick="this.newtotal()"></button>
     <div>
-        <button class="highlighted" onclick="operation = '+';highlightselected()">+</button>
-        <button onclick="operation = '-';highlightselected()">-</button>
-        <button onclick="operation = 'x';highlightselected()">x</button>
-        <button onclick="operation = '/';highlightselected()">/</button>
+        <button class="highlighted arithmetic" onclick="operation = '+';highlightselected('.arithmetic')">+</button>
+        <button class="arithmetic" onclick="operation = '-';highlightselected('.arithmetic')">-</button>
+        <button class="arithmetic" onclick="operation = 'x';highlightselected('.arithmetic')">x</button>
+        <button class="arithmetic" onclick="operation = '/';highlightselected('.arithmetic')">/</button>
     </div>
     <h1 id="total">0</h1>
     <div>
-        <button onclick="difficulty = false;level = 1">regular</button>
-        <button onclick="difficulty = true">challenge</button>
+        <button class="highlighted difficulty" onclick="difficulty = false;level = 1;highlightselected('.difficulty')">regular</button>
+        <button class="difficulty" onclick="difficulty = true;highlightselected('.difficulty')">challenge</button>
     </div>
     <div>
         <h3 class="score template"></h3>
@@ -118,8 +118,9 @@
         score.innerHTML = "Score: " + turns;
         turns = 0
     }
-    highlightselected = () => {
-        var highlighted = document.querySelector(".highlighted");
+    highlightselected = (group) => {
+        var highlighted = document.querySelector(".highlighted" + group);
+        console.log("highlighted " + group);
         highlighted.classList.remove("highlighted");
         onclick = event.target.classList.add("highlighted");
     }
